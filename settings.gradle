@@ -1,0 +1,2 @@
+rootProject.name = 'FinanceAPI'
+include 'openapi-swagger'

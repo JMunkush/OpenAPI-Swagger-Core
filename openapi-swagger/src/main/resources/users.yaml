@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Finance API
+  description: Finance API
+  version: 0.0.1
+servers:
+  - url: /
+paths:
+  /users:
+    post:
+      tags: [ Users ]
+      summary: Create User
+      description: Create User
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: Успешное выполнение запроса на создание заявки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CreateUserRequest:
+      type: object
+      properties:
+        applicationId:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор пользователя
+        name:
+          type: string
+          description: Имя заявителя
+        phoneNumber:
+          type: string
+          description: Контактный телефон заявителя
+        email:
+          type: string
+          description: Тип продукта
+    CreateUserResponse:
+      type: object
+      properties:
+        applicationId:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор пользователя
+        message:
+          type: string
+          description: Дополнительное сообщение
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Код ошибки
+        message:
+          type: string
+          description: Описание ошибки

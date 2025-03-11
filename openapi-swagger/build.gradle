@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'org.openapi.generator' version '6.2.0'
+}
+
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+tasks.register("users", GenerateTask) {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/users.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = "io.munkush.app.api"
+    invokerPackage = "io.munkush.app.invoker"
+    modelPackage = "io.munkush.app.model"
+    configOptions = [
+            dateLibrary: "java17",
+            useTags: "true",
+            interfaceOnly: "true",
+            swaggerAnnotations: "true",
+            modelMutable: "true",
+            allowUnicodeIdentifiers: "true"
+    ]
+}
+
+tasks.build.dependsOn('users')
+compileJava.dependsOn('users')
